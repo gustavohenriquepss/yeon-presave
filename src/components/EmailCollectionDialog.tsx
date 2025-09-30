@@ -53,7 +53,7 @@ export const EmailCollectionDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="mx-4 w-[calc(100vw-2rem)] max-w-[calc(100vw-2rem)] sm:max-w-md">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>
             Receba notificações do lançamento
