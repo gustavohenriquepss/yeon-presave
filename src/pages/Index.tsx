@@ -36,19 +36,19 @@ const Index = () => {
           />
         </div>
 
-        {/* Release Date */}
-        <div className="text-center mb-6 sm:mb-8 animate-fade-in">
-          <p className="text-sm sm:text-base text-muted-foreground uppercase tracking-widest mb-2">
-            Lançamento em
-          </p>
-          <p className="text-2xl sm:text-3xl font-bold text-foreground">
-            {formatReleaseDate(releaseDate)}
-          </p>
+        {/* Countdown Timer */}
+        <div className="mb-6 sm:mb-8">
+          <CountdownTimer releaseDate={releaseDate} />
         </div>
 
-        {/* Countdown Timer */}
-        <div className="mb-10 sm:mb-12">
-          <CountdownTimer releaseDate={releaseDate} />
+        {/* Release Date */}
+        <div className="text-center mb-10 sm:mb-12">
+          <p className="text-xs sm:text-sm text-muted-foreground uppercase tracking-wide mb-1">
+            Lançamento em
+          </p>
+          <p className="text-lg sm:text-xl font-medium text-muted-foreground">
+            {formatReleaseDate(releaseDate)}
+          </p>
         </div>
 
         {/* Pre-save Buttons */}
