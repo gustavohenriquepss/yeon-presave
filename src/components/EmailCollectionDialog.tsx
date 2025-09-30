@@ -98,7 +98,7 @@ export const EmailCollectionDialog = ({
 
           <Button
             type="submit"
-            className="w-full"
+            className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Enviando...' : `Continuar para ${platformName}`}
