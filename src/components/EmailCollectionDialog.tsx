@@ -11,6 +11,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Mail } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import { z } from 'zod';
 
 interface EmailCollectionDialogProps {
   open: boolean;
@@ -28,27 +30,51 @@ export const EmailCollectionDialog = ({
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const emailSchema = z.object({
+    email: z
+      .string()
+      .email('Por favor, insira um e-mail válido')
+      .trim()
+      .toLowerCase()
+      .max(255),
+  });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email || !email.includes('@')) {
-      toast.error('Por favor, insira um e-mail válido');
+    const validation = emailSchema.safeParse({ email });
+    if (!validation.success) {
+      toast.error(validation.error.errors[0].message);
       return;
     }
 
     setIsSubmitting(true);
 
-    // Mock submission - will be replaced with Supabase later
-    setTimeout(() => {
-      console.log('Email collected:', { email, platform: platformName });
+    try {
+      const { error } = await supabase
+        .from('email_subscriptions')
+        .insert({ email: validation.data.email });
+
+      if (error) {
+        if ((error as any).code === '23505') {
+          toast.error('Este e-mail já está cadastrado!');
+        } else {
+          console.error('Erro ao salvar e-mail:', error);
+          toast.error('Erro ao cadastrar e-mail. Tente novamente.');
+        }
+        return;
+      }
+
       toast.success('E-mail cadastrado com sucesso! Redirecionando...');
       setEmail('');
-      setIsSubmitting(false);
       onOpenChange(false);
-      
-      // Open the platform URL after successful "submission"
       window.open(platformUrl, '_blank');
-    }, 1000);
+    } catch (err) {
+      console.error('Erro inesperado:', err);
+      toast.error('Erro ao cadastrar e-mail. Tente novamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
