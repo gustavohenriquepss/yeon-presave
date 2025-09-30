@@ -60,7 +60,7 @@ export const EmailCollectionDialog = ({
             Receba notificações do lançamento
           </DialogTitle>
           <DialogDescription>
-            Insira seu e-mail para ser notificado quando o álbum for lançado no {platformName}.
+            Insira seu e-mail para ser notificado sobre o lançamento no {platformName}.
           </DialogDescription>
         </DialogHeader>
 
