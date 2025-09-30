@@ -3,6 +3,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Mail } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import { z } from 'zod';
+
+const emailSchema = z.object({
+  email: z.string().email('Por favor, insira um e-mail válido').trim().toLowerCase(),
+});
 
 export const EmailCapture = () => {
   const [email, setEmail] = useState('');
@@ -11,19 +17,39 @@ export const EmailCapture = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email || !email.includes('@')) {
-      toast.error('Por favor, insira um e-mail válido');
+    // Validate email
+    const validation = emailSchema.safeParse({ email });
+    if (!validation.success) {
+      toast.error(validation.error.errors[0].message);
       return;
     }
 
     setIsSubmitting(true);
     
-    // Simulação de envio - aqui você conectaria com seu backend
-    setTimeout(() => {
+    try {
+      const { error } = await supabase
+        .from('email_subscriptions')
+        .insert({ email: validation.data.email });
+
+      if (error) {
+        // Handle duplicate email error
+        if (error.code === '23505') {
+          toast.error('Este e-mail já está cadastrado!');
+        } else {
+          console.error('Error saving email:', error);
+          toast.error('Erro ao cadastrar e-mail. Tente novamente.');
+        }
+        return;
+      }
+
       toast.success('E-mail cadastrado com sucesso! 🎉');
       setEmail('');
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      toast.error('Erro ao cadastrar e-mail. Tente novamente.');
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (
