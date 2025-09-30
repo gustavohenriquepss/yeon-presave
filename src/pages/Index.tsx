@@ -2,21 +2,17 @@ import { CountdownTimer } from '@/components/CountdownTimer';
 import { PresaveButtons } from '@/components/PresaveButtons';
 import albumCover from '@/assets/FURACAO2000v4.jpg';
 import logo from '@/assets/Logo_1.svg';
-
 const Index = () => {
   // Data de lançamento: 11 de Outubro de 2025
   const releaseDate = new Date('2025-10-11T00:00:00');
-  
   const formatReleaseDate = (date: Date) => {
     return date.toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: 'long',
-      year: 'numeric',
+      year: 'numeric'
     });
   };
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 sm:py-12">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12 animate-fade-in">
@@ -30,11 +26,7 @@ const Index = () => {
 
         {/* Album Cover */}
         <div className="mb-8 sm:mb-12 animate-scale-in">
-          <img
-            src={albumCover}
-            alt="Capa do Single"
-            className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-lg shadow-lg object-cover"
-          />
+          <img src={albumCover} alt="Capa do Single" className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-lg shadow-lg object-cover" />
         </div>
 
         {/* Countdown Timer */}
@@ -59,11 +51,9 @@ const Index = () => {
 
         {/* Footer */}
         <footer className="mt-12 sm:mt-16 flex justify-center animate-fade-in">
-          <img src={logo} alt="Yeon Music Logo" className="h-8 sm:h-10 opacity-80" />
+          <img src={logo} alt="Yeon Music Logo" className="h-8 sm:h-10 opacity-100 " />
         </footer>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
