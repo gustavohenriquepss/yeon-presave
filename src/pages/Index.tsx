@@ -1,6 +1,7 @@
 import { CountdownTimer } from '@/components/CountdownTimer';
 import { PresaveButtons } from '@/components/PresaveButtons';
 import albumCover from '@/assets/FURACAO2000v4.jpg';
+import logo from '@/assets/Logo_1.svg';
 
 const Index = () => {
   // Data de lançamento: 11 de Outubro de 2025
@@ -57,8 +58,8 @@ const Index = () => {
         </div>
 
         {/* Footer */}
-        <footer className="mt-12 sm:mt-16 text-center text-xs sm:text-sm text-muted-foreground animate-fade-in">
-          <p>© 2025 YEON MUSIC. Todos os direitos reservados.</p>
+        <footer className="mt-12 sm:mt-16 flex justify-center animate-fade-in">
+          <img src={logo} alt="Yeon Music Logo" className="h-8 sm:h-10 opacity-80" />
         </footer>
       </div>
     </div>
