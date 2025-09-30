@@ -20,7 +20,7 @@ const Index = () => {
             FURACÃO2000
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground font-medium">
-            por <span className="text-white font-semibold">MENINO GANK, HAJED, DATOMMY!</span>
+            por <span className="text-white font-semibold text-[FF3C27]">MENINO GANK, HAJED, DATOMMY!</span>
           </p>
         </div>
 
