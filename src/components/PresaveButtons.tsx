@@ -57,11 +57,6 @@ export const PresaveButtons = () => {
             Pré-save no {platform.name}
           </Button>
         ))}
-        
-        <div className="flex items-center justify-center gap-2 mt-2 text-muted-foreground text-sm">
-          <Music2 className="w-4 h-4" />
-          <span>Disponível em todas as plataformas</span>
-        </div>
       </div>
 
       {selectedPlatform && (
