@@ -9,7 +9,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
 import { Mail } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -27,7 +26,6 @@ export const EmailCollectionDialog = ({
   platformUrl,
 }: EmailCollectionDialogProps) => {
   const [email, setEmail] = useState('');
-  const [marketingOptIn, setMarketingOptIn] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,10 +40,9 @@ export const EmailCollectionDialog = ({
 
     // Mock submission - will be replaced with Supabase later
     setTimeout(() => {
-      console.log('Email collected:', { email, marketingOptIn, platform: platformName });
+      console.log('Email collected:', { email, platform: platformName });
       toast.success('E-mail cadastrado com sucesso! Redirecionando...');
       setEmail('');
-      setMarketingOptIn(false);
       setIsSubmitting(false);
       onOpenChange(false);
       
@@ -81,20 +78,9 @@ export const EmailCollectionDialog = ({
             />
           </div>
 
-          <div className="flex items-start space-x-2">
-            <Checkbox
-              id="marketing"
-              checked={marketingOptIn}
-              onCheckedChange={(checked) => setMarketingOptIn(checked as boolean)}
-              disabled={isSubmitting}
-            />
-            <Label
-              htmlFor="marketing"
-              className="text-sm font-normal leading-snug cursor-pointer"
-            >
-              Quero receber novidades, lançamentos e conteúdos exclusivos por e-mail
-            </Label>
-          </div>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Ao continuar, você concorda em receber novidades, lançamentos e conteúdos exclusivos por e-mail.
+          </p>
 
           <Button
             type="submit"
