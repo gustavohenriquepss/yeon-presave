@@ -17,23 +17,32 @@ export const EmailCapture = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    console.log('Form submitted, email:', email);
+    
     // Validate email
     const validation = emailSchema.safeParse({ email });
     if (!validation.success) {
+      console.log('Validation failed:', validation.error.errors[0].message);
       toast.error(validation.error.errors[0].message);
       return;
     }
 
+    console.log('Validation passed, attempting to save...');
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase
+      console.log('Supabase client:', supabase);
+      const { data, error } = await supabase
         .from('email_subscriptions')
-        .insert({ email: validation.data.email });
+        .insert({ email: validation.data.email })
+        .select();
+
+      console.log('Insert response:', { data, error });
 
       if (error) {
         // Handle duplicate email error
         if (error.code === '23505') {
+          console.log('Duplicate email detected');
           toast.error('Este e-mail já está cadastrado!');
         } else {
           console.error('Error saving email:', error);
@@ -42,6 +51,7 @@ export const EmailCapture = () => {
         return;
       }
 
+      console.log('Email saved successfully!');
       toast.success('E-mail cadastrado com sucesso! 🎉');
       setEmail('');
     } catch (error) {
