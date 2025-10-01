@@ -3,8 +3,8 @@ import { PresaveButtons } from '@/components/PresaveButtons';
 import albumCover from '@/assets/FURACAO2000v4.jpg';
 import logo from '@/assets/Logo_1.svg';
 const Index = () => {
-  // Data de lançamento: 18 de Outubro de 2025
-  const releaseDate = new Date('2025-10-18T00:00:00');
+  // Data de lançamento: 5 de Outubro de 2025
+  const releaseDate = new Date('2025-10-05T00:00:00');
   const formatReleaseDate = (date: Date) => {
     return date.toLocaleDateString('pt-BR', {
       day: '2-digit',
